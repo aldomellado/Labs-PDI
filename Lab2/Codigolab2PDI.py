@@ -54,8 +54,7 @@ imgGray = cv2.imread(args["imgGray"])
 imgGray = cv2.cvtColor(imgGray, cv2.COLOR_BGR2RGB)
 
 imgGray = imgGray.reshape((imgGray.shape[0] * imgGray.shape[1], 3))
-
-clt = KMeans(n_clusters = args["clusters"])
+clt = KMeans(n_clusters = "clusters")
 clt.fit(imgGray)
 
 def centroid_histogram(clt):
