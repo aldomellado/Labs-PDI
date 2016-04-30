@@ -52,7 +52,7 @@ if papel=="1":
 	mask1_manual.save('Binarizacion_manual1.png')
 	mask1_manual_Inv = mask1_manual.invert()
 	mask1_manual_Inv.save('Binarizacion_manual1.png')	
-		    
+		  
 if papel=="2":
 	
 	#Segmentacion Manual
