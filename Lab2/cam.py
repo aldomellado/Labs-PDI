@@ -51,7 +51,7 @@ if papel=="1":
 	mask1_manual = imgGray.binarize(158,250,0,5)
 	mask1_manual.save('Binarizacion_manual1.png')
 	mask1_manual_Inv = mask1_manual.invert()
-	mask1_manual_Inv.save('Binarizacion_manual1.png')	
+	mask1_manual_Inv.save('Binarizacion_manual1_Invertido.png')	
 		  
 if papel=="2":
 	
@@ -76,7 +76,7 @@ if papel=="3":
 	#Segmentacion Manual
 	
 	(red,  green, blue) = img.splitChannels(False)
-	red_hist = red.histogram(255)				# histograma del color rojo
+	red_hist = red.histogram(255)
 	green_hist = green.histogram(255)
 	blue_hist = blue.histogram(255)
 	plt.ion()
