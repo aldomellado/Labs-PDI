@@ -15,19 +15,19 @@ img.show()
 imgGray = img.grayscale(255)
 imgGray.show()
 
-# Opción 2
-#(red,  green, blue) = img.splitChannels(False)
-#red_hist = red.histogram(255)				# histograma del color rojo
+#Opción 2
+#(red,green, blue) = img.splitChannels(False)
+#red_hist = red.histogram(255)
 #green_hist = green.histogram(255)
 #blue_hist = blue.histogram(255)
-#
+
 #plt.subplot(3, 1, 1)
-#plt.plot(red_hist )
+#plt.plot(red_hist)
 #plt.title('Histograma de Rojo')
 #plt.ylabel('Damped oscillation')
-#
+
 #plt.subplot(3, 1, 2)
-#plt.plot(green_hist,)
+#plt.plot(green_hist)
 #plt.title('Histograma de Verde')
 #plt.ylabel('Undamped')
 
@@ -38,24 +38,30 @@ imgGray.show()
 #plt.savefig('RGB-graph')
 #plt.show()
 
-imgb=imgGray.invert().binarize(127)  #127 se puede variar. Juega con ese numero para ver como queda la imagen
+print 'Binaraze'
+
+imgb=imgGray.binarize(50,255,0,5)  #127 se puede variar. Juega con ese numero para ver como queda la imagen
+imgb.save('img-b.png')
 imgb.show()
+imgbv=imgb.invert()
+imgbv.save('imgbv.png')
+imgbv.show()
 
 # falta eso de generar las mascaras para identificar: fondo y lineas cuadriculadas
 
-# K-means
+print "K-means"
 
-ap = argparse.ArgumentParser()
+ap=argparse.ArgumentParser()
 ap.add_argument("-i", "--imgGray", required = True)
 ap.add_argument("-c", "--clusters", required = True, type = int)
-args = vars(ap.parse_args())
+args=vars(ap.parse_args())
 
-imgGray = cv2.imread(args["imgGray"])
-imgGray = cv2.cvtColor(imgGray, cv2.COLOR_BGR2RGB)
+imgGray=cv2.imread(args["imgGray"])
+imgGray=cv2.cvtColor(imgGray, cv2.COLOR_BGR2RGB)
 
-imgGray = imgGray.reshape((imgGray.shape[0] * imgGray.shape[1], 3))
+imgGray=imgGray.reshape((imgGray.shape[0] * imgGray.shape[1], 3))
 
-clt = KMeans(n_clusters = args["clusters"])
+clt=KMeans(n_clusters = args["clusters"])
 clt.fit(imgGray)
 
 def centroid_histogram(clt):

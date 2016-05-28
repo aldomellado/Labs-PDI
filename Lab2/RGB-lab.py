@@ -36,9 +36,9 @@ plt.title('Histograma de Rojo')
 #plt.savefig('RGB-graph')
 plt.show()
 
-print 'Binaraze'
+print "Binaraze"
 
-imgb=imgGray.binarize(50,255,0,5)  #127 se puede variar. Juega con ese numero para ver como queda la imagen
+imgb=imgGray.binarize()
 imgb.save('img-b.png')
 imgb.show()
 imgbv=imgb.invert()
@@ -47,14 +47,15 @@ imgbv.show()
 
 print 'K-means'
 
- image = cv2.imread("PDI-image-n.png")
- (L,W)=image.shape[:2]
- image = image.reshape((image.shape[0] * image.shape[1], 3))
- clt = KMeans(n_clusters = 2)
- limites= clt.fit_predict(image)
- quant=clt.cluster_centers_.astype("uint8")[limites]
+image = cv2.imread("PDI-image-n.png")
+(L,W)=image.shape[:2]
+image = image.reshape((image.shape[0] * image.shape[1], 3))
+clt = KMeans(n_clusters = 2)
+limites= clt.fit_predict(image)
+quant=clt.cluster_centers_.astype("uint8")[limites]
 quant=quant.reshape(L,W,3)
 plt.figure()
+print "fin"
 plt.imshow(quant)
 plt.show()
 
