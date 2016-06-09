@@ -8,9 +8,9 @@ import numpy as np
 #import utils
 import cv2
 
-print 'Iniciando Camara'
 print 'Capturando Imagen'
-c = Camera()                            
+
+c = Camera()                            # Iniciamos la camara
 time.sleep(2)                           
 img=c.getImage()                       
 img.save('image.png')
@@ -20,36 +20,17 @@ print 'Imagen capturada'
 #lectura de la imagen obtenida para su procesamiento
 
 print 'Procesando'
-print 'Creando Máscara'
+
 
 img=Image("image.png")
-img=img.resize(380,380)
+Mask=Image("mask.png")				#Creamos la máscara.
 (red, green, blue)=img.splitChannels(False)
 red.save("Redimage.png")
 blue.save("Blueimage.png")
 green.save("Greenimage.png")
 imgGris=img.grayscale()
 imgGris.save("Grayimage.png")
-Mask=Image("mask.png")				
-Mask=Mask.resize(380,380)
-
-print 'Cannys'
-
-imagen = green.edges(30,80)
-image = imagen*Mask+img
-image.save("ImgGreen.png")
-
-imagen = red.edges(30,80)
-image = imagen*Mask+img
-image.save("ImgRed.png")
-
-imagen = blue.edges(30,80)
-image = imagen*Mask+img
-image.save("ImgBlue.png")
-
-imagen =imgGris.edges(30,80)
-image  = imagen*Mask+img
-image.save("ImgGris.png")
+Mask=Mask.resize(320,240)
 
 #Procedemos a testear Blob
 
@@ -72,8 +53,8 @@ blob.draw((200,0,0),width=3)
 img.addDrawingLayer(imgGris.dl())
 img.save("Blob_gris.png")
 img.show()
-    
-#Distancia Color
+
+ #Distancia Color
 print 'Color Distance'
 
 dist=red.colorDistance()
@@ -102,7 +83,7 @@ img.addDrawingLayer(bin.dl())
 img.save("Distance_Blue.png")
 plt.title('Color Distance Blue')
 img.show()
-    
+
 dist = green.colorDistance()
 bin=dist.binarize(70).morphClose()
 lines=bin.findLines(threshold=10,minlinelength=15)
