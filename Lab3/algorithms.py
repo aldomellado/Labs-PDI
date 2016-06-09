@@ -13,70 +13,83 @@ import cv2
 ##img=c.getImage()                       
 ##img.save('image.png')
 
-
 #lectura de la imagen obtenida para su procesamiento
 
-	img=Image("lunares.png")
-	Mask=Image("mask.png")				#Creamos la máscara.
+img=Image("lunares.png")
+Mask=Image("mask.png")				#Creamos la máscara.
+(red, green, blue)=img.splitChannels()
+red.save("Redimage.png")
+blue.save("Blueimage.png")
+green.save("Greenimage.png")
+imgGris=img.grayscale()
+imgGris.save("Grayimage.png")
 
-	(red, green, blue)=img.splitChannels(False)
-
-	red.save("Redimage.png")
-	blue.save("Blueimage.png")
-	green.save("Greenimage.png")
-
-	imgGris=img.grayscale()
-	imgGris.save("Grayimage.png")
+#Procedemos a testear Canny
+                                    
+EdgesRED  =red.edges(t1=30,t2=80)                   # Borde RGB
+EdgesGREEN=green.edges(t1=30,t2=80)
+EdgesBLUE =blue.edges(t1=30,t2=80)
+ERed  =  EdgesRED*Mask + img
+EBlue  = EdgesBLUE*Mask + img
+EGreen = EdgesGREEN*Mask + img
+ERed.save("ERed.png")
+ERed.show()
+EGreen.save("EGreen.png")
+EGreen.show()
+EBlue.save("EBlue.png")
+EBlue.show()
+                                                    #Borde GrayScale
+EdgesGray = imgGray.edges(t1=30,t2=80)
+EGray = EdgesGray*mask + img	
+EdgesGray.save("EGray.png")
+EGray.show()
 
 #Procedemos a testear Blob
 
-	img3=green.findBlobs()                  
-	img3.draw((200,0,0),width=3)
-	img.addDrawingLayer(Greenimage.dl())
-	img.save("FotoBlobG.png")
-	img3=red.findBlobs()                  
-	img3.draw((200,0,0),width=3)
-	img.addDrawingLayer(Redimage.dl())
-	img.save("Blob_red.png")
-	img3=blue.findBlobs()                  
-	img3.draw((200,0,0),width=3)
-	img.addDrawingLayer(Blueimage.dl())
-	img.save("Blob_blue.png")
-	img3=imgGris.findBlobs()                  
-	img3.draw((200,0,0),width=3)
-	img.addDrawingLayer(Grayimage.dl())
-	img.save("Blob_gris.png")
+blob=green.findBlobs()                  
+blob.draw((200,0,0),width=3)
+img.addDrawingLayer(Greenimage.dl())
+img.save("Blob_Green.png")
+blob=red.findBlobs()                  
+blob.draw((200,0,0),width=3)
+img.addDrawingLayer(Redimage.dl())
+img.save("Blob_red.png")
+blob=blue.findBlobs()                  
+blob.draw((200,0,0),width=3)
+img.addDrawingLayer(Blueimage.dl())
+img.save("Blob_blue.png")
+blob=imgGris.findBlobs()                  
+blob.draw((200,0,0),width=3)
+img.addDrawingLayer(Grayimage.dl())
+img.save("Blob_gris.png")
 
-#Procedemos a testear Canny
+ #Distancia Color
+dist = red.colorDistance()
+bin = dist.binarize(70).morphClose()
+lines = bin.findLines(threshold=10,minlinelenght=15)
+lines.draw(width=3)
+img.addDrawingLayer(bin.dl())
+img.save("Distance_Red.png")
+                            
+dist = gray.colorDistance()
+bin = dist.binarize(70).morphClose()
+lines = bin.findLines(threshold=10,minlinelenght=15)
+lines.draw(width=3)
+img.addDrawingLayer(bin.dl())
+img.save("Distance_Gray.png")
+                            
+dist = blue.colorDistance()
+bin = dist.binarize(70).morphClose()
+lines = bin.findLines(threshold=10,minlinelenght=15)
+lines.draw(width=3)
+img.addDrawingLayer(bin.dl())
+img.save("Distance_Blue.png")
+                            
+dist = green.colorDistance()
+bin = dist.binarize(70).morphClose()
+lines = bin.findLines(threshold=10,minlinelenght=15)
+lines.draw(width=3)
+img.addDrawingLayer(bin.dl())
+img.save("Distance_Green.png")
 
-      # Borde RGB
-	EdgesRED  =red.edges(t1=30,t2=80)
-	EdgesGREEN=green.edges(t1=30,t2=80)
-	EdgesBLUE =blue.edges(t1=30,t2=80)
-	
-	ERed  =  EdgesRed*mask + img
-	EBlue  = EdgesBlue*mask + img
-	EGreen = EdgesGreen*mask + img
-
-	ERed.save("ERed.png")
-	ERed.show()
-	EGreen.save("EGreen.png")
-	EGreen.show()
-	EBlue.save("EBlue.png")
-	EBlue.show()
-
-      # Borde GrayScale
-	
-	EdgesGray = imgGray.edges(t1=30,t2=80)
-	EGray = EdgesGray*mask + img	
-	EdgesGray.save("EGray.png")
-	EGray.show()
-
-#Procedemos a testear Sobel
-
-	Lap = cv2.imread('original.png',0)
-	laplacian = cv2.Laplacian(Lap,cv2.CV_64F)
-	sobelx = cv2.Sobel(Lap,cv2.CV_64F,1,0,ksize=5)
-	sobely = cv2.Sobel(Lap,cv2.CV_64F,0,1,ksize=5)
-	plt.imshow(sobelx,cmap = 'gray')
-	plt.savefig("FotoLaplaciana.png")
+                          
