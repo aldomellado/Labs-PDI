@@ -33,6 +33,28 @@ imgGris.save("Grayimage.png")
 Mask=Image("mask.png")				
 Mask=Mask.resize(380,380)
 
+#Procedemos a testear Blob
+
+print 'Blob'
+
+blob=green.findBlobs()                  
+blob.draw((200,0,0),width=2)
+img.addDrawingLayer(green.dl())
+img.save("Blob_Green.png")
+blob=red.findBlobs()                  
+blob.draw((200,0,0),width=2)
+img.addDrawingLayer(red.dl())
+img.save("Blob_red.png")
+blob=blue.findBlobs()                  
+blob.draw((200,0,0),width=2)
+img.addDrawingLayer(blue.dl())
+img.save("Blob_blue.png")
+blob=imgGris.findBlobs()                  
+blob.draw((200,0,0),width=2)
+img.addDrawingLayer(imgGris.dl())
+img.save("Blob_gris.png")
+img.show()
+
 print 'Cannys'
 
 imagen = green.edges(30,80)
@@ -50,28 +72,6 @@ image.save("ImgBlue.png")
 imagen =imgGris.edges(30,80)
 image  = imagen*Mask+img
 image.save("ImgGris.png")
-
-#Procedemos a testear Blob
-
-print 'Blob'
-
-blob=green.findBlobs()                  
-blob.draw((200,0,0),width=3)
-img.addDrawingLayer(green.dl())
-img.save("Blob_Green.png")
-blob=red.findBlobs()                  
-blob.draw((200,0,0),width=3)
-img.addDrawingLayer(red.dl())
-img.save("Blob_red.png")
-blob=blue.findBlobs()                  
-blob.draw((200,0,0),width=3)
-img.addDrawingLayer(blue.dl())
-img.save("Blob_blue.png")
-blob=imgGris.findBlobs()                  
-blob.draw((200,0,0),width=3)
-img.addDrawingLayer(imgGris.dl())
-img.save("Blob_gris.png")
-img.show()
     
 #Distancia Color
 print 'Color Distance'
