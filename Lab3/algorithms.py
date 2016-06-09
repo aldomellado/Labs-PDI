@@ -114,19 +114,19 @@ img.show()
 
 print 'Gradiente'
 print 'procedemos a binarizar la imagen para poder así obtener, a través del gradiente, sus bordes'
-bingrad=imgb.morphGradient().save("bingradiennre.png")
-abcd=imgb.morphGradient()
-fotobordesgrad=abcd.show()
-graygrad=imgGray.morphGradient().save("Gg.png")
-REDgrad=red.morphGradient().save("rg.png")
-GREENgrad=green.morphGradient().save("gG.png")
-BLUEgrad=blue.morphGradient().save("bg.png")
+bingrad=img.morphGradient().save("rbg.png")
+abcd=img.morphGradient()
+edgeimage=abcd.show()
+gg=imgGris.morphGradient().save("Gg.png")
+Rgrad=red.morphGradient().save("rg.png")
+Ggrad=green.morphGradient().save("gG.png")
+Bgrad=blue.morphGradient().save("bg.png")
 
 print 'sobel' 
 
-imgbinsobel = imgb.sobel().save("bsobel.png")
-sobel=imgb.sobel()
-imgGraysobel = imgGray.sobel().save("Gsobel.png")
+imgbinsobel = img.sobel().save("bsobel.png")
+sobel=img.sobel()
+imgGris_edges_sobel = imgGris.sobel().save("Gsobel.png")
 red_edgesobel = red.sobel().save("Rsobel.png")
 green_edgesobel = green.sobel().save("Gsobel.png")
 blue_edgesobel = blue.sobel().save("Bsobel.jpg")
