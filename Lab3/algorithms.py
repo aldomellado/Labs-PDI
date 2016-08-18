@@ -18,9 +18,8 @@ img.save('image.png')
 print 'Imagen capturada'
 
 #lectura de la imagen obtenida para su procesamiento
-
 print 'Procesando'
-print 'Creando Máscara'
+print 'Creando Mascara'
 
 img=Image("image.png")
 img=img.resize(380,380)
@@ -34,7 +33,6 @@ Mask=Image("mask.png")
 Mask=Mask.resize(380,380)
 
 #Procedemos a testear Blob
-
 print 'Blob'
 
 blob=green.findBlobs()                  
@@ -86,7 +84,7 @@ plt.title('Color Distance Red')
 img.show()
 
 dist = imgGris.colorDistance()
-bin=dist.binarize(75).morphClose()
+bin=dist.binarize(70).morphClose()
 lines=bin.findLines(threshold=10,minlinelength=10)
 lines.draw(width=3)
 img.addDrawingLayer(bin.dl())
@@ -95,7 +93,7 @@ img.save("Distance_Gray.png")
 img.show()
 
 dist = blue.colorDistance()
-bin=dist.binarize(75).morphClose()
+bin=dist.binarize(70).morphClose()
 lines=bin.findLines(threshold=10,minlinelength=10)
 lines.draw(width=3)
 img.addDrawingLayer(bin.dl())
@@ -113,7 +111,7 @@ plt.title('Color Distance Green')
 img.show()                          
 
 print 'Gradiente'
-print 'procedemos a binarizar la imagen para poder así obtener, a través del gradiente, sus bordes'
+
 bingrad=img.morphGradient().save("rbg.png")
 abcd=img.morphGradient()
 edgeimage=abcd.show()
